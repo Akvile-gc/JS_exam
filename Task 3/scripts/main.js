@@ -17,6 +17,7 @@ const ENDPOINT = 'https://api.github.com/users';
 const button = document.querySelector(`#btn`);
 const output = document.querySelector(`#output`);
 const p = document.querySelector(`#message`); 
+const cointainer = document.querySelector(`.output-cointainer`); 
 
 button.addEventListener(`click`, () => {
     p.style.display = `none`;
@@ -31,26 +32,39 @@ button.addEventListener(`click`, () => {
         data.forEach(element => {
             const card = document.createElement(`div`);
             const user = document.createElement(`h3`);
-            const url = document.createElement(`h5`);
+            const img = document.createElement(`img`);
             user.textContent = `User login: ${element.login}`;
-            url.textContent = `User url: ${element.avatar_url}`;
-            card.append(user, url);
+            img.src = element.avatar_url;
+            createImg(img);
+            card.append(user, img);
             createCard(card);
             output.append(card);
-        })
-        
+        })     
     }
     
-    
+        Object.assign(output.style, {
+            display: `flex`,
+            flexDirection: `column`,
+        })
+
+
     function createCard(block){
         Object.assign(block.style, {
             backgroundColor: `grey`,
             border: `1px solid black`,
-            width: `500px`,
             margin: `20px auto`,
             textAlign: `center`,
-            float: `center`       
+            padding: `1rem`,
+            // minWidth: `calc(100vw - (100vw - 100%))`,
         })
     }
-    
+    function createImg(picture){
+        Object.assign(picture.style, { 
+            width: "200px",
+            height: "200px",
+            objectFit: "cover",
+            borderRadius: "50%",
+            padding: `1rem`,
+        })
+    }  
 })

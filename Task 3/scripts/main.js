@@ -30,32 +30,27 @@ button.addEventListener(`click`, () => {
     
     function outputData(data){
         data.forEach(element => {
-            const card = document.createElement(`div`);
+            const card = document.createElement(`span`);
             const user = document.createElement(`h3`);
             const img = document.createElement(`img`);
             user.textContent = `User login: ${element.login}`;
             img.src = element.avatar_url;
             createImg(img);
-            card.append(user, img);
             createCard(card);
+            card.append(user, img);
             output.append(card);
         })     
     }
     
-        Object.assign(output.style, {
-            display: `flex`,
-            flexDirection: `column`,
-        })
-
-
     function createCard(block){
         Object.assign(block.style, {
             backgroundColor: `grey`,
             border: `1px solid black`,
-            margin: `20px auto`,
+            margin: `20px`,
             textAlign: `center`,
             padding: `1rem`,
-            // minWidth: `calc(100vw - (100vw - 100%))`,
+            maxWidth: `calc(100vw - (100vw - 100%))`,
+            float: `left`,
         })
     }
     function createImg(picture){
@@ -67,4 +62,11 @@ button.addEventListener(`click`, () => {
             padding: `1rem`,
         })
     }  
+    Object.assign(output.style, {
+        display: `flex`,
+        flexFlow: `row wrap`,
+        justifyContent: `space-evenly`,
+        alignItems: `center`,
+        // padding: `1rem`,
+    })
 })

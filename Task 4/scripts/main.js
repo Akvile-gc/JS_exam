@@ -9,41 +9,46 @@ būti stilizuota su CSS ir būti responsive;
 -------------------------------------------------------------------------- */
 
 const ENDPOINT = 'cars.json';
-
 const output = document.querySelector(`#output`);
 
 window.onload = () => {
     fetch(ENDPOINT)
         .then(res => res.json())
         .then(data => outputData(data))
-        .catch(error => console.log(error)),
+        .catch(error => console.log(error));
 
     function outputData(data){
         data.forEach(car => {
+            const card = document.createElement(`div`);
+            const carBrand = document.createElement(`h1`);
+            carBrand.style.marginTop = `0`;
+            const mod = car.models;
+            carBrand.textContent = car.brand;
+            createCard(card);
+            card.append(carBrand);
+            mod.forEach(type => {
+                const carModel = document.createElement(`p`);
+                carModel.append(type);
+                card.append(carModel);
+            })
+            output.append(card);
 
-            const brand = document.createElement(`h1`);
-            brand.textContent = car.brand;
-            output.append.brand;
-
-            
-            // const card = document.createElement(`div`);
-            // const brand = document.createElement(`h1`);
-            // const model = document.createElement(`p`);
-            // brand.textContent = car.brand;
-            // model.textContent = element.models;
-            // card.append(brand, model);
-            // createCard(card);
-            // output.append(card);
         })
 
-    // function createCard(block){
-    //     Object.assign(block.style, {
-    //         backgroundColor: `grey`,
-    //         border: `1px solid black`,
-    //         width: `500px`,
-    //         margin: `20px auto`,
-    //         textAlign: `center`,
-    //         float: `center`       
-    //     })
-    // }        
-    }}
+        function createCard(block){
+            Object.assign(block.style, {
+                border: `1px solid black`,
+                margin: `20px auto`,
+                textAlign: `center`,
+                padding: `1rem`,
+            })
+        }
+    }
+    
+    Object.assign(output.style, {
+        display: `flex`,
+        flexFlow: `row wrap`,
+        textAlign: `center`,
+        padding: `1rem`,
+    })
+}
